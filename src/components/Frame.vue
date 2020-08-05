@@ -1,26 +1,32 @@
 <template>
     <div>
         <h4 class="text-white m-0">Align your face in the box.</h4>
+        <img :src="glasses" id="glasses" alt="" height="100" width="100">
+
+        <button @click="run">Run</button>
         <main class="frame-container container d-flex justify-content-center">
             <div class="border-white col-md-6 frame p-0">
-                <video autoplay></video>        
-                <canvas class="d-none"></canvas>
+                <video id="streamOutput" autoplay></video>   
+                <canvas id="overlay"></canvas>
             </div>
         </main>
     </div>
 </template>
 
 <script>
+import FaceDetection from '../service/FaceDetection'
 export default {
     data() {
         return {
+            glasses: require('../assets/img/Words_art_sunglasses.png'),
             videoOptions: {
                 video: {
-                    width: 370, 
-                    height: 392,
+                    width: 320, 
+                    height: 360,
                 },
             },
             video: '',
+            FaceAPI: new FaceDetection()
         }
     },
     mounted() {
@@ -36,16 +42,29 @@ export default {
 
     methods: {
         handleStream(stream){
-            // this.stream = stream;
             this.video.srcObject = stream;
-            console.log(stream);
-            // streamStarted = true;
         },
 
         async startStream(constraints){
             const stream = await navigator.mediaDevices.getUserMedia(constraints);
             this.handleStream(stream);
-            console.log(stream);
+        },
+
+        async run(){
+            const detection = await this.FaceAPI.run();
+            
+            console.log(detection);
+
+            const glasses = document.querySelector("#glasses");
+
+            console.log("Eye area: ");
+            console.log( detection.landmarks.getNose() );
+            
+            glasses.style.zIndex = "99";
+            // glasses.style.transform = `translate3d( ${}, ${} )`;
+            glasses.style.position = "absolute";
+            glasses.style.left = detection.detection.box.left;
+            glasses.style.right = detection.detection.box.right;
         }
     },
 }

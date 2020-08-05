@@ -1,9 +1,5 @@
 <template>
-    <nav class="col-md-2 d-flex py-lg-2 px-0 d-none d-md-block bg-light sidebar">
-        <button class="nav-control">
-            <span class="hr hr-short"></span>
-            <span class="hr hr-long"></span>
-        </button>
+    <nav class="col-md-2 d-flex py-lg-2 px-0 d-lg-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky my-lg-5">
             <ul class="nav flex-column">
                 <li class="nav-item">
