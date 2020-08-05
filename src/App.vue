@@ -4,6 +4,7 @@
       <div class="col-md-9">
         <div class="container">
           <h2 class="font-weight-bold pt-4 text-left title">Spectacles</h2>
+          <Frame />
         </div>
       </div>
       <div class="col-md-3 bg-white">
@@ -20,11 +21,13 @@
 
 <script>
 import Sidebar from './components/Sidebar';
+import Frame from './components/Frame';
 
 export default {
   name: 'App',
   components: {
-    Sidebar
+    Sidebar,
+    Frame
   }
 }
 </script>
@@ -45,5 +48,16 @@ export default {
   border-radius: 20px;
   min-height: 100vh;
   overflow: hidden;
+}
+
+.frame{
+  border: 4px solid #fff;
+  min-height: 350px;
+  max-height: 400px;
+}
+
+.frame-container{
+  align-items: center;
+  min-height: 80vh;
 }
 </style>
